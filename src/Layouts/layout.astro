@@ -1,12 +1,6 @@
 ---
 import Navbar from '@/components/navbar'
 import '../styles/globals.css'
-
-interface Props {
-  useLayoutVersionRedirect?: boolean,
-}
-
-const { useLayoutVersionRedirect = false } = Astro.props;
 ---
 <!DOCTYPE html>
 <script is:inline>
@@ -48,10 +42,10 @@ const { useLayoutVersionRedirect = false } = Astro.props;
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" href="/bcuwOnlyTitleSquare.png" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>BCUW</title>
 	</head>
 	<body class="h-screen w-screen bg-secondary">
     <Navbar client:only='react' />
@@ -62,73 +56,5 @@ const { useLayoutVersionRedirect = false } = Astro.props;
         </main>
       </div>
     </div>
-    {
-      useLayoutVersionRedirect && (
-        <script is:inline>
-              const versions = {
-          "v1": {
-            "title": "v1",
-            "acceptable_search_params": ["v1", "1"],
-            "url": "v1.bcuw.xyz"
-          },
-          "v2": {
-            "title": "v2",
-            "acceptable_search_params": ["v2", "2"],
-            "url": "unofficialblossomcraftwiki.wikidot.com"
-          },
-          "v3": {
-            "title": "v3",
-            "acceptable_search_params": ["v3", "3"],
-            "url": "v3.bcuw.xyz"
-          },
-          "v4": {
-            "title": "v4",
-            "acceptable_search_params": ["v4", "4", "latest", "current"],
-            "url": "v4.bcuw.xyz"
-          },
-          "vc": {
-            "title": "community",
-            "acceptable_search_params": ["vc", "community", "c", "profile", "pw"],
-            "url": "community.bcuw.xyz"
-          },
-          "github": {
-            "title": "github",
-            "acceptable_search_params": ["github", "gh"],
-            "url": "github.com/UnofficialBlossomCraftWikis"
-          }
-        };
-
-        // Get all accepted search parameters
-        const accepted_search_params = Object.keys(versions).map(key => 
-          versions[key].acceptable_search_params
-        ).flat();
-      
-        // Lookup function to map the version from acceptable_search_params to the version key
-        function getVersionKey(searchParam) {
-          for (const key in versions) {
-            if (versions[key].acceptable_search_params.includes(searchParam)) {
-              return key;
-            }
-          }
-          return undefined;
-        }
-
-        // Check if the 'v' parameter exists in the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has("v")) {
-          let versionParam = urlParams.get("v");
-          if (accepted_search_params.includes(versionParam)) {
-            let versionKey = getVersionKey(versionParam); // Get the corresponding version key or default to the latest version
-            let url = versions[versionKey].url;
-          
-            const final_url = "https://" + url;
-          
-            // Redirect to the final URL
-            window.location.href = final_url;
-          }
-        }
-        </script>
-      )
-    }
 	</body>
 </html>

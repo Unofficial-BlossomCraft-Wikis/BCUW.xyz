@@ -1,0 +1,12 @@
+---
+import Layout from "@/Layouts/layout.astro";
+import VisitOnNewest from "@/components/visit-on-newest";
+---
+
+<Layout>
+  <div class="flex flex-col items-center justify-center gap-4 text-center">
+    <h1 class="text-4xl font-bold">404</h1>
+    <p>This page does not exist or has been moved. if you would like,<br/> click the button below to visit on the latest version of BCUW.</p>
+    <VisitOnNewest pathname={Astro.url.pathname} client:only="react" />
+  </div>
+</Layout>

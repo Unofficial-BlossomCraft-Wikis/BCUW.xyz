@@ -85,8 +85,8 @@ function CardBtn({ v }: { v: string }) {
         <Button variant='outline'>Visit</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
-        <DropdownMenuItem onClick={() => console.log("Visit")}>
-          Visit
+        <DropdownMenuItem asChild>
+          <a href={`v${v}.bcuw.xyz`}>Visit</a>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <SetDefaultBtn v={v} />
