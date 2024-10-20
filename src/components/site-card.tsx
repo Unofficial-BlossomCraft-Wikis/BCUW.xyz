@@ -86,7 +86,7 @@ function CardBtn({ v }: { v: string }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
         <DropdownMenuItem asChild>
-          <a href={`v${v}.bcuw.xyz`}>Visit</a>
+          <a href={`https://v${v}.bcuw.xyz`}>Visit</a>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <SetDefaultBtn v={v} />
