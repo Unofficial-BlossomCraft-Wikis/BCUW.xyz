@@ -2,13 +2,11 @@
 import Layout from "@/Layouts/layout.astro";
 import { SiteCard } from "@/components/site-card";
 
-// Define the version structure
 type Version = {
   title: string;
   v: string;
 };
 
-// Define the versions object using Record for better type inference
 const versions: Record<string, Version> = {
   v1: { title: "v1", v: "1" },
   v2: { title: "v2", v: "2" },

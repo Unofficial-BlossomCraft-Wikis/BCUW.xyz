@@ -71,7 +71,7 @@ export function SiteCard({ title, v }: { title: string; v: string }) {
       </CardContent>
       <CardFooter>
         <div className='flex gap-2'>
-          <CardBtn v={v} />
+          <Button variant='outline' className='w-fit' asChild><a href={`https://v${v}.bcuw.xyz`}>Visit</a></Button>
         </div>
       </CardFooter>
     </Card>
