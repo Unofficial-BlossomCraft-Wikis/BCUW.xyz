@@ -1,16 +1,31 @@
 ---
-
+import Layout from "@/Layouts/layout.astro";
+import { SiteCard } from "@/components/site-card";
+const versions = {
+  "v1": {
+    "title": "v1",
+    "v": "1"
+  },
+  "v2": {
+    "title": "v2",
+    "v": "2"
+  },
+  "v3": {
+    "title": "v3",
+    "v": "3"
+  },
+  "v4": {
+    "title": "v4",
+    "v": "4"
+  },
+}
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout useLayoutVersionRedirect>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  {
+    Object.keys(versions).map(key => (
+      <SiteCard title={versions[key].title} v={versions[key].v} client:only="react" />
+    ))
+  }
+  </div>
+</Layout>

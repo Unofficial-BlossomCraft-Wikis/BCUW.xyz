@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --celestial: #0cebff;
+    --celestial-foreground: #004950;
+    --immortal: #9b59b6;
+    --immortal-foreground: #2f1938;
+    --emperor: #3498db;
+    --emperor-foreground: #0c2e45;
+    --shogun: #f1c40f;
+    --shogun-foreground: #493b04;
+    --samurai: #2ecc71;
+    --samurai-foreground: #0e3d22;
+    --pancake: #eca24d;
+    --pancake-foreground: #553209;
+    --cherry: #e91e63;
+    --cherry-foreground: #48071d;
+    --spirit: #126399;
+    --spirit-foreground: #051e2e;
+    --lotus: #71368a;
+    --lotus-foreground: #221029;
+    --tulip: #c27c0e;
+    --tulip-foreground: #3a2504;
+  }
+}
+@layer base {
+  :root {
+    --background: 306 100% 95%;
+    --foreground: 306 5% 0%;
+    --card: 306 50% 90%;
+    --card-foreground: 306 5% 10%;
+    --popover: 306 100% 95%;
+    --popover-foreground: 306 100% 0%;
+    --primary: 306 66.5% 66.1%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 306 30% 70%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 268 30% 85%;
+    --muted-foreground: 306 5% 35%;
+    --accent: 268 30% 80%;
+    --accent-foreground: 306 5% 10%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 306 5% 90%;
+    --border: 306 30% 50%;
+    --input: 306 30% 18%;
+    --ring: 306 66.5% 66.1%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+  .dark {
+    --background: 306 50% 5%;
+    --foreground: 306 5% 90%;
+    --card: 306 50% 0%;
+    --card-foreground: 306 5% 90%;
+    --popover: 306 50% 5%;
+    --popover-foreground: 306 5% 90%;
+    --primary: 306 66.5% 66.1%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 306 30% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 268 30% 15%;
+    --muted-foreground: 306 5% 60%;
+    --accent: 268 30% 15%;
+    --accent-foreground: 306 5% 90%;
+    --destructive: 0 100% 30%;
+    --destructive-foreground: 306 5% 90%;
+    --border: 306 30% 18%;
+    --input: 306 30% 18%;
+    --ring: 306 66.5% 66.1%;
+    --radius: 0.5rem;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%
+  }
+}
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  /* chrome zero-js view transitions */
+  :root {
+    @view-transition {
+      navigation: auto;
+    }
+  }
+}
+
+@layer utilities {
+  .prose {
+    @apply container mx-auto px-4 pt-8 pb-16 sm:px-6 lg:px-8 max-w-[1024px];
+  }
+  .prose h1,
+  .prose-h1 {
+    @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+  }
+  .prose h2,
+  .prose-h2 {
+    @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0;
+  }
+  .prose h3,
+  .prose-h3 {
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+  }
+  .prose h4,
+  .prose-h4 {
+    @apply scroll-m-20 text-xl font-semibold tracking-tight;
+  }
+  .prose p,
+  .prose-p {
+    @apply leading-7 [&:not(:first-child)]:mt-6;
+  }
+  .prose blockquote,
+  .prose-blockquote {
+    @apply mt-6 border-l-2 pl-6 italic;
+  }
+  .prose ul,
+  .prose-ul {
+    @apply my-6 ml-6 list-disc [&>li]:mt-2;
+  }
+  .prose ol,
+  .prose-ol {
+    @apply my-6 ml-6 list-decimal [&>li]:mt-2;
+  }
+  .prose code,
+  .prose-code {
+    @apply relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold;
+  }
+  .prose a,
+  .prose-a {
+    @apply text-primary underline hover:text-primary/90;
+  }
+  .prose b,
+  .prose-b {
+    @apply font-bold;
+  }
+  .prose dl,
+  .prose-dl {
+    @apply my-6 ml-6 list-disc [&>dt]:mt-2 [&>dd]:ml-6;
+  }
+  .prose dt,
+  .prose-dt {
+    @apply font-bold;
+  }
+  .mention {
+    border-radius: 3px !important;
+    padding: 0 2px !important;
+    transition: background-color 50ms ease-out, color 50ms ease-out !important;
+    cursor: pointer !important;
+    border-radius: 3px !important;
+    padding: 0 2px !important;
+    font-weight: 500 !important;
+    unicode-bidi: plaintext !important;
+    background: hsl(235 calc(1 * 85.6%) 64.7% / 0.3) 100% !important;;
+  }
+}

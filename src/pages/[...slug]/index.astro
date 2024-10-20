@@ -1,0 +1,74 @@
+---
+import Layout from "@/Layouts/layout.astro";
+const latest_version = "v4";
+const versions = {
+	"v1": {
+		"title": "v1",
+		"acceptable_search_params": ["v1", "1"],
+		"url": "v1.bcuw.xyz"
+	},
+	"v2": {
+		"title": "v2",
+		"acceptable_search_params": ["v2", "2"],
+		"url": "unofficialblossomcraftwiki.wikidot.com"
+	},
+	"v3": {
+		"title": "v3",
+		"acceptable_search_params": ["v3", "3"],
+		"url": "v3.bcuw.xyz"
+	},
+	"v4": {
+		"title": "v4",
+		"acceptable_search_params": ["v4", "4", "latest", "current"],
+		"url": "v4.bcuw.xyz"
+	},
+	"vc": {
+		"title": "community",
+		"acceptable_search_params": ["vc", "community", "c", "profile", "pw"],
+		"url": "community.bcuw.xyz"
+	},
+	"github": {
+		"title": "github",
+		"acceptable_search_params": ["github", "gh"],
+		"url": "github.com/UnofficialBlossomCraftWikis"
+	}
+};
+
+// Lookup function to map the version from acceptable_search_params to the version key
+function getVersionKey(searchParam: string): keyof typeof versions | undefined {
+	for (const key in versions) {
+		if (versions[key as keyof typeof versions].acceptable_search_params.includes(searchParam)) {
+			return key as keyof typeof versions;
+		}
+	}
+	return undefined;
+}
+
+let versionParam = Astro.url.searchParams.get("v") || versions[latest_version].acceptable_search_params[0];
+let versionKey = getVersionKey(versionParam) || latest_version; // Get the corresponding version key or default to the latest version
+let url = versions[versionKey].url;
+let path = Astro.url.pathname;
+
+if (Astro.url.pathname.startsWith("/docs") && !versions.v4.acceptable_search_params.includes(versionParam)) {
+	path = Astro.url.pathname.replace("/docs", "");
+} else if (!Astro.url.pathname.startsWith("/docs") && versions.v4.acceptable_search_params.includes(versionParam) && Astro.url.pathname !== "/" && Astro.url.pathname !== "/blog") {
+	path = "/docs" + Astro.url.pathname;
+} else if (Astro.url.pathname.startsWith("/blog") && !versions.v4.acceptable_search_params.includes(versionParam)) {
+	url = versions.v4.url;
+}
+
+const final_url = "https://" + url + path + "/";
+
+const available = await fetch(final_url).then(res => res.status === 200);
+
+if (available) {
+	console.log(`Redirecting to ${final_url}`);
+	return Astro.redirect(final_url);
+} else {
+	console.log(`${final_url} returned an error on test fetch. redirecting to ${versions[versionKey].url}`);
+	return Astro.redirect("https://" + versions[versionKey].url + "/");
+}
+---
+<Layout>
+
+</Layout>

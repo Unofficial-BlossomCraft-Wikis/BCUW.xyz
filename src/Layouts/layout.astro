@@ -1,0 +1,135 @@
+---
+import Navbar from '@/components/navbar'
+import '../styles/globals.css'
+import { updateScrollPosition } from 'astro/virtual-modules/transitions-router.js';
+
+interface Props {
+  useLayoutVersionRedirect?: boolean,
+}
+
+const { useLayoutVersionRedirect = false } = Astro.props;
+---
+<!DOCTYPE html>
+<script is:inline>
+	const getThemePreference = () => {
+		// Function to get the value of a cookie by name
+		const getCookie = (name) => {
+			const value = `; ${document.cookie}`;
+			const parts = value.split(`; ${name}=`);
+			if (parts.length === 2) return parts.pop().split(';').shift();
+		};
+		
+		// Check if the theme cookie exists, otherwise use system preference
+		const theme = getCookie('theme');
+		if (theme) {
+			return theme;
+		}
+
+		// Default to system preference if no cookie is found
+		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	};
+
+	const setThemeCookie = (theme) => {
+		// Set the theme cookie with a 20-year expiration
+		const date = new Date();
+		date.setFullYear(date.getFullYear() + 20); // 20 years
+		document.cookie = `theme=${theme}; domain=.bcuw.xyz; path=/; expires=${date.toUTCString()};`;
+	};
+
+	const isDark = getThemePreference() === 'dark';
+	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+
+	// Observer to watch for changes to the 'dark' class and update the cookie
+	const observer = new MutationObserver(() => {
+		const isDark = document.documentElement.classList.contains('dark');
+		setThemeCookie(isDark ? 'dark' : 'light');
+	});
+	observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+</script>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body class="h-screen w-screen bg-secondary">
+    <Navbar client:only='react' />
+    <div class="h-[calc(100vh-4rem)]">
+      <div class="h-[calc(100%-0.5rem)] w-[calc(100vw-1rem)]">
+        <main class="mx-2 mb-2 h-full w-full overflow-y-scroll rounded-lg bg-background p-2">
+          <slot />
+        </main>
+      </div>
+    </div>
+    {
+      useLayoutVersionRedirect && (
+        <script is:inline>
+              const versions = {
+          "v1": {
+            "title": "v1",
+            "acceptable_search_params": ["v1", "1"],
+            "url": "v1.bcuw.xyz"
+          },
+          "v2": {
+            "title": "v2",
+            "acceptable_search_params": ["v2", "2"],
+            "url": "unofficialblossomcraftwiki.wikidot.com"
+          },
+          "v3": {
+            "title": "v3",
+            "acceptable_search_params": ["v3", "3"],
+            "url": "v3.bcuw.xyz"
+          },
+          "v4": {
+            "title": "v4",
+            "acceptable_search_params": ["v4", "4", "latest", "current"],
+            "url": "v4.bcuw.xyz"
+          },
+          "vc": {
+            "title": "community",
+            "acceptable_search_params": ["vc", "community", "c", "profile", "pw"],
+            "url": "community.bcuw.xyz"
+          },
+          "github": {
+            "title": "github",
+            "acceptable_search_params": ["github", "gh"],
+            "url": "github.com/UnofficialBlossomCraftWikis"
+          }
+        };
+
+        // Get all accepted search parameters
+        const accepted_search_params = Object.keys(versions).map(key => 
+          versions[key].acceptable_search_params
+        ).flat();
+      
+        // Lookup function to map the version from acceptable_search_params to the version key
+        function getVersionKey(searchParam) {
+          for (const key in versions) {
+            if (versions[key].acceptable_search_params.includes(searchParam)) {
+              return key;
+            }
+          }
+          return undefined;
+        }
+
+        // Check if the 'v' parameter exists in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("v")) {
+          let versionParam = urlParams.get("v");
+          if (accepted_search_params.includes(versionParam)) {
+            let versionKey = getVersionKey(versionParam); // Get the corresponding version key or default to the latest version
+            let url = versions[versionKey].url;
+          
+            const final_url = "https://" + url;
+          
+            // Redirect to the final URL
+            window.location.href = final_url;
+          }
+        }
+        </script>
+      )
+    }
+	</body>
+</html>
