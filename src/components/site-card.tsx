@@ -27,7 +27,7 @@ export function SiteCard({ title, v }: { title: string; v: string }) {
       <CardHeader>
         <div className='flex'>
           <CardTitle className='basis-1/2'>{title}</CardTitle>
-          {v === "1" || v === "2" ? (
+          {v === "1" || v === "2" || v === "3" ? (
             <div className='basis-1/2 flex items-center justify-end'>
               <Deprecated />
             </div>
